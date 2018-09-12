@@ -1,4 +1,3 @@
-
 #' Generalized fiducial inference
 #'
 #' @param dat data
@@ -426,25 +425,27 @@ gfimm <- function(dat, FE, RE, N, thresh=N/2){
     }    
     if(k_n == K_n){ #if finished pick coordinates			
       #pick the coordinates
-      VT_end <- matrix(0, nrow=Dim, ncol=N) 
-      for(i in 1L:N){
-        VTi <- VT[[i]]
-        for(j in 1L:Dim){
-          if(runif(1L) <= 0.5){
-            if(j <= fe){
-              VT_end[j,i] <- min(VTi[j,])
-            }else{
-              VT_end[j,i] <- max(min(VTi[j,]),0) 
-            }
-          }else{
-            if(j <= fe){
-              VT_end[j,i] <- max(VTi[j,])
-            }else{
-              VT_end[j,i] <- max(max(VTi[j,]),0) 
-            }
-          }
-        }
-      }
+      unif <- matrix(runif(Dim*N), nrow=Dim, ncol=N) 
+      # VT_end <- matrix(0, nrow=Dim, ncol=N) 
+      # for(i in 1L:N){
+      #   VTi <- VT[[i]]
+      #   for(j in 1L:Dim){
+      #     if(unif[j,i] <= 0.5){
+      #       if(j <= fe){
+      #         VT_end[j,i] <- min(VTi[j,])
+      #       }else{
+      #         VT_end[j,i] <- max(min(VTi[j,]),0) 
+      #       }
+      #     }else{
+      #       if(j <= fe){
+      #         VT_end[j,i] <- max(VTi[j,])
+      #       }else{
+      #         VT_end[j,i] <- max(max(VTi[j,]),0) 
+      #       }
+      #     }
+      #   }
+      # }
+      VT_end <- pickCoordinates(Dim, N, fe, VT, unif)
       VERTEX <- VT_end 
       WEIGHT <- WT 
     }
