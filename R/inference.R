@@ -15,3 +15,23 @@ inference <- function(gfi, v, alpha=0.05){
   out[2] <- hsort[ci_m,1L] # estimate (median)
   out
 }
+
+#' Summary of fiducial distributions
+#'
+#' @param gfi Output of \code{\link{gfimm}}
+#' @param conf confidence level
+#'
+#' @return Summary statistics in a matrix.
+#' @export
+#'
+#' @examples
+#' data(KM41)
+#' h <- 0.005
+#' dat <- cbind(KM41$y-h, KM41$y+h)
+#' FE <- as.matrix(rep(1,nrow(dat))) # intercept
+#' RE <- data.frame(Batch = KM41$Batch)
+#' gfi <- gfimm(dat, FE, RE, N=500)
+#' gfiSummary(gfi)
+gfiSummary <- function(gfi, conf=0.95){
+  vapply(1:nrow(gfi$VERTEX), function(v) inference(gfi, v, 1-conf), numeric(4))
+}
