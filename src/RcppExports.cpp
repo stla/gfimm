@@ -6,6 +6,21 @@
 
 using namespace Rcpp;
 
+// pickCoordinates
+NumericMatrix pickCoordinates(unsigned Dim, unsigned N, unsigned fe, ListOf<NumericMatrix> VT, NumericMatrix U);
+RcppExport SEXP _gfimm_pickCoordinates(SEXP DimSEXP, SEXP NSEXP, SEXP feSEXP, SEXP VTSEXP, SEXP USEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned >::type Dim(DimSEXP);
+    Rcpp::traits::input_parameter< unsigned >::type N(NSEXP);
+    Rcpp::traits::input_parameter< unsigned >::type fe(feSEXP);
+    Rcpp::traits::input_parameter< ListOf<NumericMatrix> >::type VT(VTSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type U(USEXP);
+    rcpp_result_gen = Rcpp::wrap(pickCoordinates(Dim, N, fe, VT, U));
+    return rcpp_result_gen;
+END_RCPP
+}
 // tsolveAndMultiply
 Eigen::MatrixXd tsolveAndMultiply(const Eigen::MatrixXd& A, const Eigen::MatrixXd& C);
 RcppExport SEXP _gfimm_tsolveAndMultiply(SEXP ASEXP, SEXP CSEXP) {
@@ -31,6 +46,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_gfimm_pickCoordinates", (DL_FUNC) &_gfimm_pickCoordinates, 5},
     {"_gfimm_tsolveAndMultiply", (DL_FUNC) &_gfimm_tsolveAndMultiply, 2},
     {"_gfimm_nullSpace", (DL_FUNC) &_gfimm_nullSpace, 1},
     {NULL, NULL, 0}
