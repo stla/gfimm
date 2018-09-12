@@ -11,3 +11,19 @@
 #' str(KM41)
 #' table(KM41$Batch)
 NULL
+
+#' @title pH dataset
+#' @description A dataset from ?? (I don't remember).
+#' @name pHdata
+#' @docType data
+#' @keywords data
+#' @usage data(pHdata)
+#' @format A data frame with 160 rows and 4 columns. 
+#' Column \code{SIRE} is a factor nested in column \code{DAM}.
+#' @examples
+#' data(pHdata)
+#' str(pHdata)
+#' table(droplevels(pHdata[pHdata$DAM=="D1","SIRE"]))
+#' table(droplevels(pHdata[pHdata$DAM=="D2","SIRE"]))
+#' table(droplevels(pHdata[pHdata$DAM=="D3","SIRE"]))
+NULL
