@@ -22,3 +22,14 @@ Rcpp::List nullSpace(const Eigen::MatrixXd M){
   return Rcpp::List::create(Rcpp::Named("kernel") = nspace,
                             Rcpp::Named("rank") = r);
 }
+
+// [[Rcpp::export]]
+Rcpp::List QRdecomp(const Eigen::MatrixXd & M){ // for nrows >= ncols
+  Eigen::HouseholderQR<Eigen::MatrixXd> qr = M.householderQr();
+  Eigen::MatrixXd R_ = qr.matrixQR().triangularView<Eigen::Upper>();
+  Eigen::MatrixXd Q_ = qr.householderQ();
+  Eigen::MatrixXd R = R_.block(0,0,M.cols(),M.cols());
+  Eigen::MatrixXd Q = Q_.block(0,0,M.rows(),M.cols());
+  return Rcpp::List::create(Rcpp::Named("Q") = Q,
+                            Rcpp::Named("R") = R);
+}

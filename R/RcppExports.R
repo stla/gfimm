@@ -13,3 +13,7 @@ nullSpace <- function(M) {
     .Call('_gfimm_nullSpace', PACKAGE = 'gfimm', M)
 }
 
+QRdecomp <- function(M) {
+    .Call('_gfimm_QRdecomp', PACKAGE = 'gfimm', M)
+}
+

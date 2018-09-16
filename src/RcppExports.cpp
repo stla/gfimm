@@ -44,11 +44,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// QRdecomp
+Rcpp::List QRdecomp(const Eigen::MatrixXd& M);
+RcppExport SEXP _gfimm_QRdecomp(SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(QRdecomp(M));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_gfimm_pickCoordinates", (DL_FUNC) &_gfimm_pickCoordinates, 5},
     {"_gfimm_tsolveAndMultiply", (DL_FUNC) &_gfimm_tsolveAndMultiply, 2},
     {"_gfimm_nullSpace", (DL_FUNC) &_gfimm_nullSpace, 1},
+    {"_gfimm_QRdecomp", (DL_FUNC) &_gfimm_QRdecomp, 1},
     {NULL, NULL, 0}
 };
 

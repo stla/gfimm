@@ -243,9 +243,9 @@ gfimm <- function(dat, FE, RE, N, thresh=N/2){
                     n2 <- NUL[(nrow(NUL)-ncol(CO2)+1L):nrow(NUL), , drop=FALSE] # eta2 in [HC], up to normalization 
                     # GS <- gramSchmidt(n2)
                     # O2 <- GS$Q
-                    QR <- qr(n2)
-                    O2 <- qr.Q(QR)
-                    R <- qr.R(QR)
+                    QR <- QRdecomp(n2) # qr(n2)
+                    O2 <- QR$Q # qr.Q(QR)
+                    R <-  QR$R # qr.R(QR)
                     O1 <- tsolveAndMultiply(R, n1) # n1 %*% backsolve(R, diag(nrow(R)))
                     a <- t(O2) %*% Z1 # C in [HC] but with n2 and not O2
                     tau <- Z1 - c(O2 %*% a)
@@ -373,9 +373,9 @@ gfimm <- function(dat, FE, RE, N, thresh=N/2){
           # GS <- gramSchmidt(n2)
           # O2 <- GS$Q
           # O1 <- n1 %*% backsolve(GS$R, diag(nrow(GS$R)))
-          QR <- qr(n2)
-          O2 <- qr.Q(QR)
-          R <- qr.R(QR)
+          QR <- QRdecomp(n2) # qr(n2)
+          O2 <- QR$Q # qr.Q(QR)
+          R <-  QR$R # qr.R(QR)
           O1 <- tsolveAndMultiply(R, n1) # n1 %*% backsolve(R, diag(nrow(R)))
           a <- t(O2) %*% Z1
           tau <- Z1 - c(O2%*%a)
